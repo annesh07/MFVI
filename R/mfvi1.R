@@ -36,41 +36,30 @@ mfvi1 <- function(d,n,C0,T0,shape_alpha,rate_alpha,X,L20,Mu0,W1,W2,V1,V2,L1,L2,P
 
     for (j in 1:T0){
       V1[j,1] = 1 + sum(exp(Plog[,j]))
-      j = j+1
+      L1[j,] = Mu00 + t(exp(Plog[,j, drop=FALSE]))%*%X
+      L2[j,1] = L20 + sum(exp(Plog[,j]))
     }
 
     for (j0 in 1:T0-1){
       V2[j0,1] = W1/W2 + sum(exp(Plog[,(j0+1):T0]))
-      j0 = j0+1
     }
     V2[T0,1] = W1/W2
 
-    for (j in 1:T0){
-      L1[j,] = Mu00 + t(exp(Plog[,j, drop=FALSE]))%*%X
-      j = j+1
-    }
-    for (j in 1:T0){
-      L2[j,1] = L20 + sum(exp(Plog[,j]))
-      j = j+1
-    }
+
     for (i in 1:n){
       Plog[i,1] = digamma(V1[1,1]) - digamma(V1[1,1]+V2[1,1]) + (L1[1,, drop=FALSE]/L2[1,1])%*%t(X[i,, drop=FALSE]) - 0.5*((L1[1,, drop=FALSE]/L2[1,1])%*%(t(L1[1,, drop=FALSE])/L2[1,1])+d/L2[1,1])
       for (j00 in 2:T0){
         Plog[i,j00] = digamma(V1[j00,1]) - digamma(V1[j00,1]+V2[j00,1]) + sum(digamma(V2[1:(j00-1),1]) - digamma(V1[1:(j00-1),1]+V2[1:(j00-1),1])) + (L1[j00,, drop=FALSE]/L2[j00,1])%*%t(X[i,, drop=FALSE]) - 0.5*((L1[j00,, drop=FALSE]/L2[j00,1])%*%(t(L1[j00,, drop=FALSE])/L2[j00,1])+d/L2[j00,1])
-        j00 = j00+1
       }
       p0 = max(Plog[i,])
       Plog[i,] = Plog[i,]-p0-log(sum(exp(Plog[i,]-p0)))
-      i = i+1
     }
 
     f[[m+1]] = ELBO1(d,n,C0,T0,shape_alpha,rate_alpha,X,L20,Mu0,W1,W2,V1,V2,L1,L2,Plog)
     if (abs(sum(f[[m]])-sum(f[[m+1]]))<0.000001){
       break
     }
-    cat("outer loop: ", m,"\n", sep="")
-    print(f[[m+1]])
-    cat('\n')
+    message("outer loop: ", m,"\n", print(f[[m+1]]), "\n", sep="")
   }
   alpha <- W1/W2
   clustering <- apply(Plog, MARGIN = 1, FUN=which.max)

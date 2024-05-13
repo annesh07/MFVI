@@ -31,7 +31,6 @@
 mfvi2 <- function(d,n,T0,shape_alpha,rate_alpha,s01,s02,X,L20,Mu0,W1,W2,G1,G2,V1,V2,L1,L2,Plog,maxit){
   C00 <- diag(d)/L20
   Mu00 <- Mu0%*%solve(C00)
-  source("C:/Users/ap15/Documents/MFVI/R/elbo2.R")
 
   f <- list()
   f[[1]] = ELBO2(d,n,T0,shape_alpha,rate_alpha,s01,s02,X,L20,Mu0,W1,W2,G1,G2,V1,V2,L1,L2,Plog)
