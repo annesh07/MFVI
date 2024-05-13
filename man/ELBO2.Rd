@@ -5,11 +5,11 @@
 \title{ELBO function for DPMM with varied alpha and varied sigma}
 \usage{
 ELBO2(
-  D,
-  N,
+  d,
+  n,
   T0,
-  s1,
-  s2,
+  shape_alpha,
+  rate_alpha,
   s01,
   s02,
   X,
@@ -27,21 +27,21 @@ ELBO2(
 )
 }
 \arguments{
-\item{D}{Number of Dimensions}
+\item{d}{Number of Dimensions}
 
-\item{N}{Number of Observations}
+\item{n}{Number of Observations}
 
 \item{T0}{Number of clusters in the variational distribution}
 
-\item{s1}{Shape parameter of the prior Gamma distribution for alpha}
+\item{shape_alpha}{Shape parameter of the prior Gamma distribution for alpha}
 
-\item{s2}{Rate parameter of the prior Gamma distribution for alpha}
+\item{rate_alpha}{Rate parameter of the prior Gamma distribution for alpha}
 
 \item{s01}{Shape parameter of the prior gamma distribution for sigma}
 
 \item{s02}{Rate parameter of the prior gamma distribution for sigma}
 
-\item{X}{Observations, N x D matrix}
+\item{X}{Observations, n x d matrix}
 
 \item{L20}{Precision parameter of the prior multivariate normal distribution for eta}
 
@@ -59,7 +59,7 @@ ELBO2(
 
 \item{V2}{2nd shape parameters of the posterior beta distribution for v's, T0 x 1 matrix}
 
-\item{L1}{Mean parameters of the posterior multivariate normal distribution for eta's, T0 x D matrix}
+\item{L1}{Mean parameters of the posterior multivariate normal distribution for eta's, T0 x d matrix}
 
 \item{L2}{Precision parameters of the posterior multivariate normal distribution for eta's, T0 x 1 matrix}
 
@@ -72,5 +72,5 @@ the value of the ELBO
 This function computes the ELBO for a DPMM with varied alpha and varied sigma
 }
 \examples{
-ELBO2(D=2,N=100,T0=20,s1=0.001,s2=0.001,s01=0.001,s02=0.001,X=matrix(1,nrow=100, ncol=2),L20=0.001,Mu0=matrix(c(rep(0,2)), nrow=1),W1=0.001,W2=0.001,G1=0.001,G2=0.002,V1=matrix(0.0001, nrow = 20, ncol = 1),V2=matrix(0.0001, nrow = 20, ncol = 1),L1=matrix(0.0001, nrow = 20, ncol = 2),L2=matrix(0.0001, nrow = 20, ncol = 1),Plog=matrix(-3,nrow=100,ncol=20))
+ELBO2(d=2,n=100,T0=20,shape_alpha=0.001,rate_alpha=0.001,s01=0.001,s02=0.001,X=matrix(1,nrow=100, ncol=2),L20=0.001,Mu0=matrix(c(rep(0,2)), nrow=1),W1=0.001,W2=0.001,G1=0.001,G2=0.002,V1=matrix(0.0001, nrow = 20, ncol = 1),V2=matrix(0.0001, nrow = 20, ncol = 1),L1=matrix(0.0001, nrow = 20, ncol = 2),L2=matrix(0.0001, nrow = 20, ncol = 1),Plog=matrix(-3,nrow=100,ncol=20))
 }

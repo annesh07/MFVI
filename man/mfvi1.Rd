@@ -4,22 +4,40 @@
 \alias{mfvi1}
 \title{Mean-Field Variational Inference-I}
 \usage{
-mfvi1(D, N, C0, T0, s1, s2, X, L20, Mu0, W1, W2, V1, V2, L1, L2, Plog, maxit)
+mfvi1(
+  d,
+  n,
+  C0,
+  T0,
+  shape_alpha,
+  rate_alpha,
+  X,
+  L20,
+  Mu0,
+  W1,
+  W2,
+  V1,
+  V2,
+  L1,
+  L2,
+  Plog,
+  maxit
+)
 }
 \arguments{
-\item{D}{Number of Dimension}
+\item{d}{Number of Dimension}
 
-\item{N}{Number of Observations}
+\item{n}{Number of Observations}
 
 \item{C0}{Covariance matrix of the Observed data}
 
 \item{T0}{Number of clusters in the variational distribution}
 
-\item{s1}{Shape parameter of the prior Gamma distribution for alpha}
+\item{shape_alpha}{Shape parameter of the prior Gamma distribution for alpha}
 
-\item{s2}{Rate parameter of the prior Gamma distribution for alpha}
+\item{rate_alpha}{Rate parameter of the prior Gamma distribution for alpha}
 
-\item{X}{Observations, N x D matrix}
+\item{X}{Observations, n x d matrix}
 
 \item{L20}{Precision parameter of the prior multivariate normal distribution for eta}
 
@@ -33,7 +51,7 @@ mfvi1(D, N, C0, T0, s1, s2, X, L20, Mu0, W1, W2, V1, V2, L1, L2, Plog, maxit)
 
 \item{V2}{2nd shape parameters of the posterior beta distribution for v's, T0 x 1 matrix}
 
-\item{L1}{Mean parameters of the posterior multivariate normal distribution for eta's, T0 x D matrix}
+\item{L1}{Mean parameters of the posterior multivariate normal distribution for eta's, T0 x d matrix}
 
 \item{L2}{Precision parameters of the posterior multivariate normal distribution for eta's, T0 x 1 matrix}
 
@@ -48,5 +66,5 @@ the posterior expected value of alpha and the number of clusters on the basis of
 This function performs the mean-field variational inference for a DP mixture model, where the alpha parameter from the DP prior is considered varied (a Gamma prior) and the variance of the observations is considered fixed
 }
 \examples{
-mfvi1(D=2,N=100,C0=diag(2),T0=20,s1=0.001,s2=0.001,X=matrix(1,nrow=100, ncol=2),L20=0.001,Mu0=matrix(c(rep(0,2)), nrow=1),W1=0.001,W2=0.001,V1=matrix(0.0001, nrow = 20, ncol = 1),V2=matrix(0.0001, nrow = 20, ncol = 1),L1=matrix(0.0001, nrow = 20, ncol = 2),L2=matrix(0.0001, nrow = 20, ncol = 1),Plog=matrix(-3,nrow=100,ncol=20),maxit=1000)
+mfvi1(d=2,n=100,C0=diag(2),T0=20,shape_alpha=0.001,rate_alpha=0.001,X=matrix(1,nrow=100, ncol=2),L20=0.001,Mu0=matrix(c(rep(0,2)), nrow=1),W1=0.001,W2=0.001,V1=matrix(0.0001, nrow = 20, ncol = 1),V2=matrix(0.0001, nrow = 20, ncol = 1),L1=matrix(0.0001, nrow = 20, ncol = 2),L2=matrix(0.0001, nrow = 20, ncol = 1),Plog=matrix(-3,nrow=100,ncol=20),maxit=1000)
 }
